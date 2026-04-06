@@ -13,6 +13,10 @@ const model = genAI.getGenerativeModel({model : "gemini-pro"});
 app.post("/chat",async(req,res)=>{
     try{
         const userMessage = req.body.message;
+
+        if(!userMessage) {
+            return res.status(400).json({error: "Message required"});
+        }
         const result = await model.generateContent(userMessage);
         const response = await result.response;
 
